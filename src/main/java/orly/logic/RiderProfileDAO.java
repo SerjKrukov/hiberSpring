@@ -7,9 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import java.util.List;
 
-/**
- * Created by Serj on 09.04.2017.
- */
+
 @Repository
 @Transactional
 public class RiderProfileDAO {
@@ -24,14 +22,14 @@ public class RiderProfileDAO {
     public List<RiderProfile> getAllRiderProfiles() {
         return entityManager.createQuery("from RiderProfile").getResultList();
     }
-    public RiderProfile getById(Integer id) {
+    public RiderProfile getById(long id) {
         return entityManager.find(RiderProfile.class, id);
     }
-    public List<RiderProfile> getByName(String name) {
-        return entityManager.createQuery("from RiderProfile name = :name").setParameter("name", name).getResultList();
+    public RiderProfile getByName(String name) {
+        return (RiderProfile) entityManager.createQuery("from RiderProfile name = :name").setParameter("name", name).getSingleResult();
     }
-    public List<RiderProfile> getByNickname(String nickname) {
-        return entityManager.createQuery("from RiderProfile nickname = :nickname").setParameter("nickname", nickname).getResultList();
+    public RiderProfile getByNickname(String nickname) {
+        return (RiderProfile) entityManager.createQuery("from RiderProfile nickname = :nickname").setParameter("nickname", nickname).getSingleResult();
     }
     public void updateRiderProfile(RiderProfile riderProfile) {
         entityManager.merge(riderProfile);

@@ -7,9 +7,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- * Created by Serj on 09.04.2017.
- */
+
 @Entity
 @Table
 public class RiderProfile {
@@ -30,8 +28,18 @@ public class RiderProfile {
     public RiderProfile() {
     }
 
+    public RiderProfile(Long id) {
+        this.id = id;
+    }
+
     public RiderProfile(Long id, String name, String nickname, Integer age) {
         this.id = id;
+        this.name = name;
+        this.nickname = nickname;
+        this.age = age;
+    }
+
+    public RiderProfile(String name, String nickname, Integer age) {
         this.name = name;
         this.nickname = nickname;
         this.age = age;

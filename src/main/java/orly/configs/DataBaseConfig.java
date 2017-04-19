@@ -14,25 +14,28 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-/**
- * Created by Serj on 11.04.2017.
- */
+
 @Configuration
 @EnableTransactionManagement
 public class DataBaseConfig {
+
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName(env.getProperty("db.driver"));
-        dataSource.setUrl(env.getProperty("dr.url"));
+        dataSource.setUrl(env.getProperty("db.url"));
         dataSource.setUsername(env.getProperty("db.username"));
         dataSource.setPassword(env.getProperty("db.password"));
         return dataSource;
     }
+
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean entityManagerFactory = new LocalContainerEntityManagerFactoryBean();
+        LocalContainerEntityManagerFactoryBean entityManagerFactory =
+                new LocalContainerEntityManagerFactoryBean();
+
         entityManagerFactory.setDataSource(dataSource);
+
         entityManagerFactory.setPackagesToScan(env.getProperty("entitymanager.packagesToScan"));
 
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -57,10 +60,14 @@ public class DataBaseConfig {
     public PersistenceExceptionTranslationPostProcessor exceptionTranslationPostProcessor() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
+
+
     @Autowired
     private Environment env;
+
     @Autowired
     private DataSource dataSource;
+
     @Autowired
     private LocalContainerEntityManagerFactoryBean entityManagerFactory;
 
